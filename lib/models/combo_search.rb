@@ -11,6 +11,15 @@ module EcoAppsSupport
       end
       
       def combo_search(conditions, options = {}, &block)
+        conditions = conditions.clone
+        
+        if conditions.kind_of?(Hash)
+          conditions = conditions.with_indifferent_access
+          options.merge!(:page => conditions.delete(:page)) unless conditions[:page].blank?
+          options.merge!(:order => "#{conditions.delete(:order)} #{conditions.delete(:sc)||""}") unless conditions[:order].blank?
+          conditions = conditions[self.search_key] unless ([self.search_key, "controller"] & conditions.keys).blank?
+        end
+
         col = self
         [:order, :joins, :includes].each do |opt|
           col = col.send(opt, options.delete(opt))
@@ -100,22 +109,24 @@ module EcoAppsSupport
 
     class FromSqlHash < SqlHash
       match :from do |column, value, column_type|
-        return if value.blank?
-        if [:datetime, :date].include?(column_type)
-          "#{column} >= '#{value.to_time.in_time_zone.beginning_of_day.to_s(:db)}'"
-        elsif column_type == :integer
-          "#{column} >= #{value}"
+        unless value.blank?
+          if [:datetime, :date].include?(column_type)
+            "#{column} >= '#{value.to_time.in_time_zone.beginning_of_day.to_s(:db)}'"
+          elsif column_type == :integer
+            "#{column} >= #{value}"
+          end
         end
       end
     end
 
     class ToSqlHash < SqlHash
       match :to do |column, value, column_type|
-        return if value.blank?
-        if [:datetime, :date].include?(column_type)
-          "#{column} <= '#{value.to_time.in_time_zone.end_of_day.to_s(:db)}'"
-        elsif column_type == :integer
-          "#{column} <= #{value}"
+        unless value.blank?
+          if [:datetime, :date].include?(column_type)
+            "#{column} <= '#{value.to_time.in_time_zone.end_of_day.to_s(:db)}'"
+          elsif column_type == :integer
+            "#{column} <= #{value}"
+          end
         end
       end
     end

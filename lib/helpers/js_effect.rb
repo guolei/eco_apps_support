@@ -27,6 +27,10 @@ module EcoAppsSupport
       "$(document).ready(function(){#{block_given? ? block.call : content}});"
     end
 
+    def toggle_element(dom_id)
+      %{$('##{dom_id}').toggle('slow');}
+    end
+
     def popup(*args, &block)
       options = args.extract_options!
       box_options = []

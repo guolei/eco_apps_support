@@ -15,7 +15,7 @@ module EcoAppsSupport
       content_tag :span, {:class => "combo_search"} do
         c = ""
 
-        toggle = "Element.toggle('advanced');"
+        toggle = toggle_element("advanced_search")
         c << link_to_function(t(:advanced), toggle) if attrs.size > simple
 
         c << content_tag(:span, :id => "simple_search") do
@@ -48,7 +48,7 @@ module EcoAppsSupport
 
       content = attr.is_a?(Array) ? search_content_for_array(klass, attr, key, value) :
         search_content_for_column(klass, attr, key, value)
-      title = (key =~ /(.*)\.(.*)/ ? $2 : key)
+      title = translate(column =~ /(.*)\.(.*)/ ? $2 : column)
 
       (advance ? table_line_tag(title, content) : title + content).html_safe
     end

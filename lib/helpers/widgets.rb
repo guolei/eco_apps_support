@@ -18,7 +18,7 @@ module EcoAppsSupport
             unless options[:ignore_header]
               content << content_tag(:thead) do
                 content_tag :tr do
-                  row.head.map{|i| build_table_head(i)}.join("")
+                  row.head.map{|i| build_table_head(i)}.join.html_safe
                 end
               end
             end
@@ -31,7 +31,7 @@ module EcoAppsSupport
           tr_options[:style] = "background: #{row.tr_color}" if row.tr_color.present?
 
           content << content_tag(:tr, tr_options) do
-            row.content.map{|i| content_tag(:td, i.class==Symbol ? item.try(i) : i)}.join
+            row.content.map{|i| content_tag(:td, i.class==Symbol ? item.try(i) : i.html_safe)}.join.html_safe
           end
         end
         content << "</tbody>"
@@ -183,7 +183,7 @@ module EcoAppsSupport
       args = {}
       args[:class] = td_class unless td_class.blank?
       args[:style] = "width: #{options[:width]}" unless options[:width].blank?
-      content_tag :th, value, (td_class.blank? ? {} : {:class => td_class})
+      content_tag :th, value.html_safe, (td_class.blank? ? {} : {:class => td_class})
     end
 
     def collection_range_title(collection)

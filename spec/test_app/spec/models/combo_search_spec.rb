@@ -15,7 +15,7 @@ describe "ComboSearch" do
 
   describe "combo_search" do
     it "should find all by default" do
-      Article.combo_search({}).should == [@a1, @a2, @a3]
+      Article.combo_search({:order => "id", :sc=>"desc"}).should == [@a3, @a2, @a1]
       Article.combo_search({}, :default => :none).should == []
     end
 
@@ -25,7 +25,7 @@ describe "ComboSearch" do
     end
 
     it "should search by one column" do
-      Article.combo_search({:title => "one"}).should == [@a1]
+      Article.combo_search(:q=>{:title => "one"}, :page=>1).should == [@a1]
       Article.combo_search("title like 't%'", :conditions=>{:published => true}).should == [@a2]
     end
 
@@ -63,7 +63,7 @@ describe "ComboSearch" do
     end
 
     it "should accept order" do
-      Article.combo_search({:published => true}, :order => "id desc").should == [@a2, @a1]
+      Article.combo_search(:q=>{:published => true}, :order => "id desc").should == [@a2, @a1]
     end
 
     it "should define customized hash role" do
