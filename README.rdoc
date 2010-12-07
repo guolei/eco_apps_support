@@ -45,4 +45,33 @@ find_column_by_name(column_name)
 
   Article.find_column_by_name(:created_at).type # => :datetime
 
- 
+=== Fixnum
+
+==== to_formatted_time
+to_formatted_time(with_second = true)
+
+  30.to_formatted_time # => "0:30"
+  1000.to_formatted_time # => "16:40"
+  10000.to_formatted_time # => "2:46:40"
+  10000.to_formatted_time(false) # => "2:46"
+
+to_time_zone
+
+  8.to_time_zone.name # => "Beijing"
+
+=== String
+
+==== to_html
+
+  "Hello\nWorld".to_html # => "<p>Hello\n<br />World</p>"
+
+This method can be extended by block or defining subclass of StringFormatter
+
+  "Hello\nWorld".to_html{|t| t.gsub(/o/,"i")} # => "<p>Helli\n<br />Wirld</p>"
+
+  class MyFormatter < StringFormatter
+    def class.format(str)
+      str.gsub(/Hello/,"Hi")
+    end
+  end
+  "Hello\nWorld".to_html # => "<p>Hi\n<br />Wirld</p>"
