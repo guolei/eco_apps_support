@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TestApp</title>
+    <%= stylesheet_link_tag :all %>
+   
+    <%= jquery_include_tag %>
+     <%= javascript_include_tag :all %>
+    <%#= csrf_meta_tag %>
+
+    <script>
+      $(document).ready(function(){
+        $(".example5").colorbox();
+      });
+    </script>
+
+  </head>
+  <body>
+    <p><a class='example5' href="/articles/10" title="Homer Defined">Outside HTML (Ajax)</a></p>
+
+    <p> In Layout </p>
+    <%= yield %>
+
+  </body>
+</html>

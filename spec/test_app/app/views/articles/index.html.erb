@@ -1,0 +1,9 @@
+<p>
+  <%= popup "Show Article", article_path(10) %>
+</p>
+<%#= search_form_for(Article, :created_at,:title, [:updated_at, {:ampm=>true}], :published,
+  [:published_at, {:null_check => true}], [:id, {:range => true}], ["comments.score", {:collection=>[1,3,5]}], :simple => 2).html_safe %>
+
+<p><%= t ".hello" %></p>
+
+<%= date_field_tag :name %>

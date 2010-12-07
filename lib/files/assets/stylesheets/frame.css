@@ -1,0 +1,39 @@
+.calendar_view{width:100%;}
+.calendar_view, .calendar_view th, .calendar_view tr, .calendar_view td{border:1px dotted #586A7E;border-collapse:collapse;padding:2px 3px;}
+.calendar_view th{background:#C2D5FC}
+.calendar_view .hl{border-right:0;}
+.calendar_view .hm{border-right:0;border-left:0}
+.calendar_view .hr{border-left:0}
+.calendar_view th a{margin:0 5px;}
+.calendar_view .date{border-bottom:0;font-size:11px;}
+.calendar_view .date td{border-bottom:0;text-align:right;background-color:#EBEFF4}
+.calendar_view .date .grey{background-color:#E2E3E6;color:grey}
+.calendar_view .date .today{background-color:#D1DEF4}
+.calendar_view .content{border-top:0;}
+.calendar_view .content td{border-top:0;height:90px}
+.calendar_view .content .grey{background-color:#ECECEC;color:grey}
+.calendar_view .content .today{background-color:#E2EDFF}
+
+table.list_table { margin-bottom: 1em; width: 100%; border-collapse: collapse; empty-cells: show; }
+table.list_table th { font-weight: bold; padding: 5px 15px 5px 5px; border: 1px solid #d0d6ec; }
+table.list_table th.asc { background: #577bbf url(../images/idp_views/arrow_down.gif) no-repeat right; }
+table.list_table th.desc { background: #577bbf url(../images/idp_views/arrow_up.gif) no-repeat right; }
+table.list_table th a { color: #fff; text-decoration: underline; }
+table.list_table thead th { background: #577bbf; color: #fff; }
+table.list_table th, table.list_table td, table.list_table caption { padding: 5px 4px; }
+table.list_table tr { background-color: #FFF; }
+table.list_table tr.even, table.list_table tr:nth-child(odd) { background: #f2f5fb; }
+table.list_table tr.group td { background-color: #eee; font-weight: bold; font-size: 13px; }
+table.list_table tr:hover { background-color: #fffad9; }
+table.list_table td { border-collapse: collapse; border: 1px solid #d0d6ec; }
+table.list_table tfoot { font-style: italic; }
+table.list_table caption { background: #eee; }
+table.list_table .right { float: right; padding-right: 10px; margin-left: 20px; }
+
+.list_table_page { background-color: #f2f5fb; border: 1px solid #d0d6ec; border-bottom-width: 2px; padding: 5px; text-align: center; }
+.list_table_page form { display: inline; padding: 0 3px; }
+
+.pagination { display: inline-block; padding: 0 10px; margin-left: 10px; border-left: 1px solid #577bbf; }
+.pagination a { display: inline-block; border: 1px solid #d0d6ec; padding: 1px 5px; text-decoration: none; }
+.pagination a:hover { border: 1px solid #fff; background-color: #577bbf; color: #fff; }
+.pagination .current { padding: 3px 5px; border: 1px solid #f2f5fb; }

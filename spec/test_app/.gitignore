@@ -1,0 +1,9 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
+public/stylesheets/images
+public/stylesheets/colorbox.css
+public/javascripts/jquery.colorbox.js
+public/javascripts/frame.js
+public/stylesheets/frame.css

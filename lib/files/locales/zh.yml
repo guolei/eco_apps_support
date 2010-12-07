@@ -1,0 +1,158 @@
+"zh":
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %e日"
+      long: "%Y年 %m月 %e日"
+      only_day: "%e日"
+
+    day_names: [星期天 星期一 星期二 星期三 星期四 星期五 星期六]
+    abbr_day_names: [日 一 二 三 四 五 六]
+    month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+    abbr_month_names: [~, 1月 2月 3月 4月 5月 6月 7月 8月 9月 10月 11月 12月]
+    order: [ :year, :month, :day ]
+
+  time:
+    formats:
+      default: "%a %b %d %H:%M:%S %Z %Y"
+      time: "%H:%M"
+      long_time: "%H:%M:%S %p"
+      short: "%m月%d日 %H:%M"
+      date: "%Y-%m-%d"
+      only_date: "%m月%d日"
+      plain_date: "%Y%m%d"
+      long: "%Y-%m-%d %H:%M"
+      full: "%Y-%m-%d %H:%M:%S"
+      only_second: "%S"
+      month: "%Y-%m"
+      hour: "%H:00"
+      date_hour: "%m-%d %H:00"
+
+      datetime:
+        formats:
+          default: "%Y-%m-%dT%H:%M:%S%Z"
+
+      am: '上午'
+      pm: '下午'
+
+  datetime:
+    distance_in_words:
+      half_a_minute: '半分钟'
+      less_than_x_seconds:
+        zero: '一秒内'
+        one: '一秒'
+        other: '%{count} 秒'
+      x_seconds:
+        zero: '一秒内'
+        one: '一秒'
+        other: '%{count} 秒'
+      less_than_x_minutes:
+        zero: '一分钟内'
+        one: '一分钟'
+        other: '%{count} 分钟'
+      x_minutes:
+        zero: '一分钟内'
+        one: '一分钟'
+        other: '%{count} 分钟'
+      about_x_hours:
+        one: '一小时'
+        other: '%{count} 小时'
+      x_days:
+        one: '一天'
+        other: '%{count} 天'
+      about_x_months:
+        one: '一个月'
+        other: '%{count} 个月'
+      x_months:
+        one: '一个月'
+        other: '%{count} 个月'
+      about_x_years:
+        one: '1 年内'
+        other: '%{count} 年'
+      over_x_years:
+        one: '1 年内'
+        other: '%{count} 年以上'
+
+  number:
+    format:
+      precision: 3
+      separator: '.'
+      delimiter: ','
+    currency:
+      format:
+        unit: '￥'
+        precision: 2
+        format: '%u %n'
+
+  activerecord:
+    error:
+      header_message: ["无法保存 %{object_name}: 1 错误", "无法保存 %{object_name}: %{count} 错误."]
+      message: "请检查以下字段:"
+    errors:
+      messages:
+        inclusion: "不包含于列表中"
+        exclusion: "不能用"
+        invalid: "不合法"
+        confirmation: "与确认值不匹配"
+        accepted: "必须接受"
+        empty: "不能留空"
+        blank: "不能为空"
+        too_long: "过长 (不能超过 %{count} 个字符)"
+        too_short: "过短 (不能少于 %{count} 个字符)"
+        wrong_length: "长度非法 (必须为 %{count} 个字符)"
+        taken: "不可用"
+        not_a_number: "不是数字"
+        greater_than: "必须大于 %{count}"
+        greater_than_or_equal_to: "必须大于或等于 %{count}"
+        equal_to: "必须等于 %{count}"
+        less_than: "必须小于 %{count}"
+        less_than_or_equal_to: "必须小于或等于 %{count}"
+        odd: "必须为单数"
+        even: "必须为双数"
+
+  common:
+    submit: 提 交
+    confirm: 确定删除吗？
+    search: 搜 索
+    logout: 退出
+    advanced: 高级查询
+    cancel: 取消
+    from: ' 从 '
+    to: ' 至 '
+    created_at: 创建时间&nbsp;
+    total_record:
+      zero: 没有找到任何记录
+      one: '找到 1 条记录'
+      other: '找到 %{count} 条记录'
+    previous_page: 上一页
+    next_page: 下一页
+    edit: 修改
+    cancel: 取消
+    false: 否
+    true: 是
+    access_denied: "<center><p class='access_denied'>没有访问的权限！&nbsp;<a href='%{link}'>重新加载权限</a></p></center>"
+    reading: 正在读取数据 ...
+    finished: 导入完成！
+    null_check: 是否为空
+    list_label: -- 选择 --
+    is_null: 为空
+    is_not_null: 不为空
+    loading: 正在加载...
+    load_error: 加载 %{url} 出错
+    inspect: 模拟用户
+    greater_power: 注意：权力越大，责任越重！
+    illegal_request: 非法的请求！
+    start_page: 起始页
+    sunday: 星期天
+    monday: 星期一
+    tuesday: 星期二
+    wednesday: 星期三
+    thurday: 星期四
+    friday: 星期五
+    saturday: 星期六
+    pre_month: 前一月
+    next_month: 后一月
+    jump_to: ' | 跳转至'
+    help: 帮助
+    am: '上午'
+    pm: '下午'
