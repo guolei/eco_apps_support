@@ -15,11 +15,34 @@ Blog: http://developer.idapted.com
 
 === ActiveRecord
 
-==== Object Methods
-
-===== dom_id(prefix = "")
+==== dom_id
+dom_id(prefix = "")
 
   article = Article.find(1)
   article.dom_id # => "article_1"
   article.dom_id("list") # => "list_article_1"
+
+==== day_condition_for
+day_condition_for(day, column = "created_at")
+Construct sql for day conditions.
+
+  Article.day_condition_for("2010-12-01", "published_at")
+
+==== days_between
+days_between(from, to, ignore_weekend = false)
+
+  Article.days_between(Time.now, Time.now + 5.days) # => 5
+  Article.find(1).days_between("2010-12-01", "2010-12-06", true) # => 3
+
+==== convert_tz
+convert_tz(column_name, format="%Y-%m-%d")
+Format sql date.
+
+  Article.all(:conditions => "#{convert_tz(:created_at, "%H")} > 18") # Find records created after 6pm.
+
+==== find_column_by_name
+find_column_by_name(column_name)
+
+  Article.find_column_by_name(:created_at).type # => :datetime
+
  
