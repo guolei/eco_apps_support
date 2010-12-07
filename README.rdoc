@@ -4,9 +4,9 @@ eco_apps_support contains a set of utils/extensions/helpers/ based on rails3, ma
 
 = Key URLs
 
-Git/Issues: {http://github.com/eleutian/eco_apps_support}
+Git/Issues: http://github.com/eleutian/eco_apps_support
 
-Blog: {http://developer.idapted.com}
+Blog: http://developer.idapted.com
 
 = Documentation
   
