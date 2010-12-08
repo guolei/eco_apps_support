@@ -74,4 +74,37 @@ This method can be extended by block or defining subclass of StringFormatter
       str.gsub(/Hello/,"Hi")
     end
   end
-  "Hello\nWorld".to_html # => "<p>Hi\n<br />Wirld</p>"
+  "Hello\nWorld".to_html # => "<p>Hi\n<br />World</p>"
+
+== View Helpers
+
+=== Date Field
+
+==== date_field_tag
+date_field_tag(name, value =nil, options= {})
+
+  date_field_tag :published_at
+
+==== date_field
+date_field(object_name, method, options = {})
+  date_field :article, :published_at
+
+  form_for @article, :article, articles_path do |f|
+    f.date_field :published_at
+  end
+
+=== JavaScript Effects
+
+==== jquery_include_tag
+jquery_include_tag(*files)
+
+Include jquery js/css files.
+
+  jquery_include_tag # include jquery.min.js
+  jquery_include_tag(:ui, :css) # include jquery-ui.min.js and jquery-ui.css
+
+==== toggle_element
+
+toggle_element(dom_id)
+
+  link_to_function :detail, toggle_element("detail")
