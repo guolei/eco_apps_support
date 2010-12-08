@@ -108,3 +108,14 @@ Include jquery js/css files.
 toggle_element(dom_id)
 
   link_to_function :detail, toggle_element("detail")
+
+==== popup
+popup(*args, &block)
+
+  popup "new article", new_article_path
+  popup "new article", new_article_path, :width => "80%", :iframe => true
+
+==== ajax_load
+ajax_load(url)
+
+  ajax_load(articles_path)
