@@ -9,6 +9,8 @@ Git/Issues: http://github.com/eleutian/eco_apps_support
 
 Blog: http://developer.idapted.com
 
+RDoc: {RDoc}[http://rubydoc.info/github/eleutian/eco_apps_support/f30858/file/README.rdoc]
+
 = Extensions
 
 == ActiveRecord
