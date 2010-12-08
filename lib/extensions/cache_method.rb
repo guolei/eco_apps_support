@@ -1,7 +1,7 @@
 module EcoAppsSupport
   module CacheMethod #:nodoc:
     def cache_method(method, *variables)
-#      alias_method "initial_#{method}", method
+      alias_method "initial_#{method}", method
       define_method(method){|*args|
         if variables.size > 0
           # cache methods like new_actions_link(action_trigger)
