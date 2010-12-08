@@ -9,45 +9,43 @@ Git/Issues: http://github.com/eleutian/eco_apps_support
 
 Blog: http://developer.idapted.com
 
-= Documentation
+= Extensions
 
-== Extensions
+== ActiveRecord
 
-=== ActiveRecord
-
-==== dom_id
+=== dom_id
 dom_id(prefix = "")
 
   article = Article.find(1)
   article.dom_id # => "article_1"
   article.dom_id("list") # => "list_article_1"
 
-==== day_condition_for
+=== day_condition_for
 day_condition_for(day, column = "created_at")
 Construct sql for day conditions.
 
   Article.day_condition_for("2010-12-01", "published_at")
 
-==== days_between
+=== days_between
 days_between(from, to, ignore_weekend = false)
 
   Article.days_between(Time.now, Time.now + 5.days) # => 5
   Article.find(1).days_between("2010-12-01", "2010-12-06", true) # => 3
 
-==== convert_tz
+=== convert_tz
 convert_tz(column_name, format="%Y-%m-%d")
 Format sql date.
 
   Article.all(:conditions => "#{convert_tz(:created_at, "%H")} > 18") # Find records created after 6pm.
 
-==== find_column_by_name
+=== find_column_by_name
 find_column_by_name(column_name)
 
   Article.find_column_by_name(:created_at).type # => :datetime
 
-=== Fixnum
+== Fixnum
 
-==== to_formatted_time
+=== to_formatted_time
 to_formatted_time(with_second = true)
 
   30.to_formatted_time # => "0:30"
@@ -59,9 +57,9 @@ to_time_zone
 
   8.to_time_zone.name # => "Beijing"
 
-=== String
+== String
 
-==== to_html
+=== to_html
 
   "Hello\nWorld".to_html # => "<p>Hello\n<br />World</p>"
 
@@ -70,22 +68,22 @@ This method can be extended by block or defining subclass of StringFormatter
   "Hello\nWorld".to_html{|t| t.gsub(/o/,"i")} # => "<p>Helli\n<br />Wirld</p>"
 
   class MyFormatter < StringFormatter
-    def class.format(str)
+    def self.format(str)
       str.gsub(/Hello/,"Hi")
     end
   end
   "Hello\nWorld".to_html # => "<p>Hi\n<br />World</p>"
 
-== View Helpers
+= View Helpers
 
-=== Date Field
+== Date Field
 
-==== date_field_tag
+=== date_field_tag
 date_field_tag(name, value =nil, options= {})
 
   date_field_tag :published_at
 
-==== date_field
+=== date_field
 date_field(object_name, method, options = {})
   date_field :article, :published_at
 
@@ -93,9 +91,9 @@ date_field(object_name, method, options = {})
     f.date_field :published_at
   end
 
-=== JavaScript Effects
+== JavaScript Effects
 
-==== jquery_include_tag
+=== jquery_include_tag
 jquery_include_tag(*files)
 
 Include jquery js/css files.
@@ -103,19 +101,128 @@ Include jquery js/css files.
   jquery_include_tag # include jquery.min.js
   jquery_include_tag(:ui, :css) # include jquery-ui.min.js and jquery-ui.css
 
-==== toggle_element
+=== toggle_element
 
 toggle_element(dom_id)
 
   link_to_function :detail, toggle_element("detail")
 
-==== popup
+=== popup
 popup(*args, &block)
 
   popup "new article", new_article_path
   popup "new article", new_article_path, :width => "80%", :iframe => true
 
-==== ajax_load
+=== ajax_load
 ajax_load(url)
 
   ajax_load(articles_path)
+
+== Search Form
+
+=== search_form_for
+search_form_for(klass, *attrs)
+
+Combo search for a module.
+
+  search_form_for(Article, :title, :created_at)
+  search_form_for(Article, [:created_at, {:ampm => true}]) # Limit records by am or pm
+  search_form_for(Article, [:published_at, {:null_check => true}]) # Select if published_at is null
+  search_form_for(Article, [:score, {:collection => [1,2,3]}])
+  search_form_for(Article, [:score, {:range => true}])
+  search_form_for(Article, "comments.title")
+
+=== search_tag
+search_tag(url, search_tip = "", options = {})
+
+Simple search form.
+
+  search_tag("/articles", "Title or description")
+  search_tag("/articles", "Title or description", :remote => true, :size => 50)
+
+== Widgets
+
+=== list_table_for
+
+list_table_for(collection = [], options = {}, &block)
+
+List records in table.
+
+  list_table_for @articles do |item, col|
+    col.tr_color = "red" if item.published_at.blank? # Change background color of tr
+    col.add :id
+    col.add :title, link_to(item.title, article_path(item)), :width => "60%"
+    col.add :published_at, item.published_at.to_s(:date), :order => "published_at" # Generate a link in head, when click the link ,the records will be sorted by published_at
+  end
+
+  # options
+  :searchable # Search content in table by js
+  :ignore_header # Ignore table header
+  :ignore_footer # Ignore paginate links
+  :update # When not null, the paginate links will be remote
+  :sortable # sort table columns
+
+=== make_table_sortable
+make_table_sortable(table_id)(table_id)
+
+  make_table_sortable("stat_table")
+
+=== calendar_view
+calendar_view(options = {}, &block)
+
+Display content in calendar.
+
+  calendar_view{|day| day.to_s(:long) }
+
+  # options
+  :ignore_header # Ignore calendar header
+
+= Model Utils
+
+== combo_search
+combo_search(conditions, options = {}, &block)
+
+Search an active_record model.
+
+  Article.combo_search(:published => true)
+  Article.combo_search(:published => true, :order => "id desc")
+  Article.combo_search({:created_at => {:from => "2010-11-01", :to => "2010-11-02"}})
+  Article.combo_search({:created_at => {:from => "2010-11-01", :ampm => "am"}})
+  Article.combo_search({:published_at => {:is_null => false}}, :joins => "comments")
+  
+  # options
+  :order
+  :joins
+  :includes
+  :paginate # default is true, if set to false, the results will not be paginated
+  :default # when set to :none, [] will be returned if conditions are blank.
+  :page # current page for pagination
+  :per_page # number of records in one page, default is 20
+
+This is usually used together with search_form_for.
+
+  # in view
+  search_form_for Article, :id, [:created_at, {:ampm => true}], [:published_at, {:null_check => true}]
+
+  # in controller
+  Article.combo_search(params)
+
+This function can be extended by block or define subclass of EcoAppsSupport::ComboSearch::SqlHash.
+
+For example, we'd like to search records by created hour. Article.combo_search{:created_at => {:after => 13}} will return records that are created after 13:00.
+
+Send block to combo_search.
+
+  Article.combo_search{:created_at => {:after => 13}} do |hash|
+    hash.match :after, :datetime do |column, value|
+        "#{Article.convert_tz(column, "%H")} >= #{value}"
+    end
+  end
+
+Define subclass of EcoAppsSupport::ComboSearch::SqlHash
+
+  class AfterMatch < EcoAppsSupport::ComboSearch::SqlHash
+    match :after, :datetime do |column, value|
+        "#{ActiveRecord::Base.convert_tz(column, "%H")} >= #{value}"
+    end
+  end

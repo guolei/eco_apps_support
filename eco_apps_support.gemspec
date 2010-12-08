@@ -12,7 +12,7 @@ spec = Gem::Specification.new do |s|
   s.require_path = "lib"
   s.autorequire = "eco_apps_support"
   s.test_files = Dir["spec/**/*"]
-  s.extra_rdoc_files = ["README"]
+  s.extra_rdoc_files = ["README.rdoc"]
   s.add_dependency("will_paginate", "~> 3.0.pre2")
 end
 

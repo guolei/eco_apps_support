@@ -9,6 +9,10 @@ describe "SearchForm" do
         [:published_at, {:null_check => true}], [:id, {:range => true}], ["comments.score", {:collection=>[1,3,5]}], :simple => 2, :url => "/articles")
     end
 
+    it "should have search_tag" do
+      helper.search_tag("/articles", "Name or Title")
+      helper.search_tag("/articles", "Name or Title", :remote => true)
+    end
   end
 
 end

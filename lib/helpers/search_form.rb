@@ -41,6 +41,18 @@ module EcoAppsSupport
       end
     end
 
+    def search_tag(url, search_tip = "", options = {})
+      dom_id = "search_form_#{rand(1000)}"
+      options[:onsubmit] = "filterNullValue('#{dom_id}')" unless options[:remote]
+      
+      form_tag(url, {:method => :get, :id => dom_id}.merge!(options)) do
+        search_field_tag(:q, search_tip, options) +
+          submit_tag(t(:search))
+      end
+    end
+
+    private
+
     def search_content_for(klass, attr, advance = true)
       column = (attr.is_a?(Array) ? attr.first : attr)
       key = "#{klass.search_key}[#{column}]"
@@ -52,8 +64,6 @@ module EcoAppsSupport
 
       (advance ? table_line_tag(title, content) : title + content).html_safe
     end
-
-    private
 
     def table_line_tag(title, content)
       content_tag :tr do
@@ -94,6 +104,11 @@ module EcoAppsSupport
         list = [nil, [t(:am), "am"], [t(:pm), "pm"]]
         search_content_for_column(klass, column, key, value) + select_tag("#{key}[ampm]", options_for_select(list, value.try("[]","ampm")))
       end
+    end
+
+    def search_field_tag(name, default_text = "", options={})
+      js = %{if(value=='#{default_text}'){value='';style.color='#000';}}
+      text_field_tag name, (params[name]||default_text),{:style=>"color:#{params[name].blank? ? '#666' : '#000'}", :onclick=>js, :size=>(options[:size]||30)}
     end
   end
 end

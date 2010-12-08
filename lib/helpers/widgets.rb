@@ -105,7 +105,7 @@ module EcoAppsSupport
           content_tag(:th, :class => "hl"){month_link(now, -1)} +
             content_tag(:th, :class => "hl", :colspan => 5){month_link(now)} +
             content_tag(:th, :class => "hl"){month_link(now, 1)}
-        end unless options[:without_header]
+        end unless options[:ignore_header]
 
         html << content_tag(:tr) do
           %w{sunday monday tuesday wednesday thurday friday saturday}.map{|d| content_tag(:th, t(d))}.join("")

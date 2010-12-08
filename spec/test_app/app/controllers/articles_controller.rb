@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.combo_search(params, :joins => :comments)
+    @articles = Article.combo_search(params)
   end
 
   def show

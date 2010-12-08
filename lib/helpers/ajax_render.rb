@@ -1,10 +1,9 @@
 class AjaxLinkRenderer < ::WillPaginate::ViewHelpers::LinkRenderer
-  def page_link_or_span(page, span_class = 'current', text = nil)
-    text ||= page.to_s
-    if page and page != current_page
-      @template.link_to text, url_for(page), :remote => true, :update => @options[:update], :method => :get
+  def page_number(page)
+    unless page == current_page
+      @template.link_to page, url(page), :rel => rel_value(page), :remote => true, :update => @options[:update]
     else
-      @template.content_tag :span, text, :class => span_class
+      tag(:em, page)
     end
   end
 end
