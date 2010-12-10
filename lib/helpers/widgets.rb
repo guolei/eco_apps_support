@@ -4,9 +4,9 @@ module EcoAppsSupport
     def list_table_for(collection = [], options = {}, &block)
       tid = "table_#{rand(1000)}"
 
-      html = collection.blank? ? "" :
+      html = collection.blank? ? "".html_safe :
         content_tag(:table, :id => tid, :class => ["list_table", options[:class]].compact.join(" ")) do
-        content = ""
+        content = "".html_safe
         collection.each_with_index do |item, index|
           row = block.call(item, ListTableColumn.new(index))
 
@@ -18,7 +18,7 @@ module EcoAppsSupport
             unless options[:ignore_header]
               content << content_tag(:thead) do
                 content_tag :tr do
-                  row.head.map{|i| build_table_head(i)}.join.html_safe
+                  row.head.map{|i| build_table_head(i)}.join
                 end
               end
             end
@@ -31,7 +31,7 @@ module EcoAppsSupport
           tr_options[:style] = "background: #{row.tr_color}" if row.tr_color.present?
 
           content << content_tag(:tr, tr_options) do
-            row.content.map{|i| content_tag(:td, i.class==Symbol ? item.try(i) : i.html_safe)}.join.html_safe
+            row.content.map{|i| content_tag(:td, i.class==Symbol ? item.try(i) : i.html_safe)}.join
           end
         end
         content << "</tbody>"
@@ -56,9 +56,9 @@ module EcoAppsSupport
           if collection.total_entries > 0
             if collection.total_pages > 5 and update.blank?
               content << t(:jump_to)
-              content << form_tag(request.url, :method=>:get)
-              content << text_field_tag(:page, params[:page], :size=>3)
-              content << "</form>"
+              content << form_tag(request.url, :method=>:get) do
+                text_field_tag(:page, params[:page], :size=>3)
+              end
             end
             content << (will_paginate(collection, {:previous_label=>t(:previous_page), :next_label=>t(:next_page), :params => custom_params}.merge(update.blank? ? {} : {:renderer => '::AjaxLinkRenderer', :update=>update})) || "")
           end
@@ -169,13 +169,11 @@ module EcoAppsSupport
       td_class = nil
 
       unless (order = options[:sort] || options[:order]).blank?
-        uri = URI.parse(request.url)
-        query = params.clone.extract!(*uri.query.to_s.split("&").map{|t| t.split("=").first})
+        query = {}
         query[:sc] = (params[:sc].blank? or params[:sc] == "desc") ? "asc" : "desc"
         query[:order] = order
 
-        uri.query = query.to_query
-        value = link_to(value, uri.to_s)
+        value = link_to(value, URI.parse(request.url).add_query(query).to_s)
         
         td_class = options[:sc] if options[:order].to_s == params[:order].to_s
       end
@@ -200,9 +198,7 @@ module EcoAppsSupport
 
     def month_link(now, addon = 0)
       m = (now + addon.month).to_s(:month)
-      uri = URI.parse(request.url)
-      uri.query = [uri.query, {:month => m}.to_query].compact.join("&")
-      link_to m, uri.to_s
+      link_to m, URI.parse(request.url).add_query(:month => m).to_s
     end
 
     def calendar_day_style(loop_time, now)

@@ -74,11 +74,10 @@ module EcoAppsSupport
     
     def search_content_for_column(klass, column, key, value)
       column_type = klass.find_column_by_name(column).type
-        
       case column_type
       when :datetime, :date
-        date_field_tag("#{key}[from]", value.try("[]","from"), :size => 20, :only_date => true) +
-          " - "+ date_field_tag("#{key}[to]", value.try("[]","to"), :size => 20, :only_date => true)
+        date_field_tag("#{key}[from]", value.try("[]","from"), :size => 20) +
+          " - "+ date_field_tag("#{key}[to]", value.try("[]","to"), :size => 20)
       when :boolean
         select_tag(key, options_for_select([nil, true, false], value))
       else

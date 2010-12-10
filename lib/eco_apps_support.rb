@@ -5,6 +5,7 @@ require 'extensions/fixnum'
 require 'extensions/string'
 require 'extensions/cache_method'
 require 'extensions/i18n'
+require 'extensions/uri'
 
 require 'models/combo_search'
 

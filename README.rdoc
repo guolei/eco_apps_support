@@ -165,7 +165,7 @@ List records in table.
   :sortable # sort table columns
 
 === make_table_sortable
-make_table_sortable(table_id)(table_id)
+make_table_sortable(table_id)
 
   make_table_sortable("stat_table")
 

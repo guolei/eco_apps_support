@@ -3,25 +3,38 @@ module ActionView
     module FormHelper
       def date_field(object_name, method, options = {})
         obj = ::ActionView::Helpers::InstanceTag.new(object_name, method, self).object
-        text_field(object_name, method, options.merge(:value => ((v=obj.try(method)).blank? ? options[:value] : v.try(:to_s,:date)))) +
-          date_picker("#{object_name}_#{method}")
+        date_picker_options = options.extract!(:change)
+        value = ((v=obj.try(method)).blank? ? options[:value] : v.try(:to_s,:date))
+
+        text_field(object_name, method, options.merge(:value => value)) +
+          date_picker("#{object_name}_#{method}", value, date_picker_options)
       end
 
       def date_field_tag(name, value =nil, options= {})
-        text_field_tag(name, value, options) +
-          date_picker(name)
+        id = sanitize_to_id(name).gsub(".", "_")
+        @id_list ||= []
+        @id_list << (@id_list.include?(id) ? (id = "#{id}_dup") : id)
+        date_picker_options = options.extract!(:change)
+
+        text_field_tag(name, value, options.merge!(:id => id)) + date_picker(id, value, date_picker_options)
       end
 
       private
-      def date_picker(dom_id)
+      def date_picker(dom_id, value, options = {})
+        locale = ({"en" => "en-GB", "zh" => "zh-CN"}[I18n.locale.to_s] || I18n.locale)
+        dom_id = sanitize_to_id(dom_id)
+        
         jquery_include_tag(:ui, :css, :i18n) +
           javascript_tag do
           "$(function() {
-              $('##{dom_id}').datepicker({dateFormat: 'yy-mm-dd', changeYear: true, changeMonth: true});
-              $('##{dom_id}').datepicker('option', $.datepicker.regional['#{I18n.locale}']);
+              $('##{dom_id}').datepicker(#{options[:change] ? "{changeYear: true, changeMonth: true}" : ""});
+              $('##{dom_id}').datepicker('option', $.datepicker.regional['#{locale}']);
+              $('##{dom_id}').datepicker('option', 'dateFormat', 'yy-mm-dd');
+              $('##{dom_id}').val('#{value}');
            });"
         end
       end
+
     end
 
     class FormBuilder #:nodoc:

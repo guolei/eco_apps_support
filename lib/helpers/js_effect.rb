@@ -40,6 +40,11 @@ module EcoAppsSupport
       end
       box_options << "iframe:true" if options.delete(:iframe)
 
+      if args.size == 2 and args.last =~ /^#(.+)/
+        box_options << "inline:true" << %{href:"##{$1}"}
+        args[1] = "#"
+      end
+
       klass = "box_#{rand(1000)}"
       options[:class] = klass
       link_to(*(args << options), &block) +
