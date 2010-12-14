@@ -13,7 +13,7 @@ module EcoAppsSupport
       simple = options[:simple]||1
 
       content_tag :span, {:class => "combo_search"} do
-        c = ""
+        c = "".html_safe
 
         toggle = toggle_element("advanced_search")
         c << link_to_function(t(:advanced), toggle) if attrs.size > simple
@@ -77,7 +77,7 @@ module EcoAppsSupport
       case column_type
       when :datetime, :date
         date_field_tag("#{key}[from]", value.try("[]","from"), :size => 20) +
-          " - "+ date_field_tag("#{key}[to]", value.try("[]","to"), :size => 20)
+          " - ".html_safe + date_field_tag("#{key}[to]", value.try("[]","to"), :size => 20)
       when :boolean
         select_tag(key, options_for_select([nil, true, false], value))
       else
@@ -98,7 +98,7 @@ module EcoAppsSupport
           " - " + text_field_tag("#{key}[to]", value.try("[]","to"), :size => 5)
       when :null_check
         list = [[t(:list_label),nil], [t(:is_null), true], [t(:is_not_null), false]]
-        t(:null_check) + select_tag("#{key}[is_null]", options_for_select(list, value.try("[]", "is_null")))
+        t(:null_check).html_safe + select_tag("#{key}[is_null]", options_for_select(list, value.try("[]", "is_null")))
       when :ampm
         list = [nil, [t(:am), "am"], [t(:pm), "pm"]]
         search_content_for_column(klass, column, key, value) + select_tag("#{key}[ampm]", options_for_select(list, value.try("[]","ampm")))

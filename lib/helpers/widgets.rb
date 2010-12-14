@@ -5,7 +5,7 @@ module EcoAppsSupport
       tid = "table_#{rand(1000)}"
 
       html = collection.blank? ? "".html_safe :
-        content_tag(:table, :id => tid, :class => ["list_table", options[:class]].compact.join(" ")) do
+        content_tag(:table, {:id => tid, :class => ["list_table", options[:class]].compact.join(" ")}) do
         content = "".html_safe
         collection.each_with_index do |item, index|
           row = block.call(item, ListTableColumn.new(index))
@@ -18,12 +18,12 @@ module EcoAppsSupport
             unless options[:ignore_header]
               content << content_tag(:thead) do
                 content_tag :tr do
-                  row.head.map{|i| build_table_head(i)}.join
+                  row.head.map{|i| build_table_head(i)}.join.html_safe
                 end
               end
             end
 
-            content << "<tbody>"
+            content << "<tbody>".html_safe
           end
 
           tr_options = {:class => [cycle("even", nil), row.css].compact.join(" ")}
@@ -31,10 +31,10 @@ module EcoAppsSupport
           tr_options[:style] = "background: #{row.tr_color}" if row.tr_color.present?
 
           content << content_tag(:tr, tr_options) do
-            row.content.map{|i| content_tag(:td, i.class==Symbol ? item.try(i) : i.html_safe)}.join
+            row.content.map{|i| content_tag(:td, i.class==Symbol ? item.try(i) : i.html_safe)}.join.html_safe
           end
         end
-        content << "</tbody>"
+        content << "</tbody>".html_safe
       end
 
       if collection.respond_to?(:total_entries)
@@ -51,7 +51,7 @@ module EcoAppsSupport
     def paginate_links(collection, update = nil, custom_params = {})
       content_tag :div, :class => "list_table_page" do
         if collection.is_a?(WillPaginate::Collection)
-          content = t(:total_record, :count => collection.total_entries)
+          content = t(:total_record, :count => collection.total_entries).html_safe
           content << collection_range_title(collection).to_s
           if collection.total_entries > 0
             if collection.total_pages > 5 and update.blank?

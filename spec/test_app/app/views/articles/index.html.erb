@@ -4,8 +4,7 @@
 
 <%= date_field_tag "name[title]","2010-01-01", :change=>true %>
 
-<%= search_form_for(Article, "articles.created_at",:title, [:updated_at, {:ampm=>true}], :published,
-  [:published_at, {:null_check => true}], [:id, {:range => true}], ["comments.score", {:collection=>[1,3,5]}], :simple => 2).html_safe %>
+<%= search_form_for(Article, "articles.created_at") %>
 
 
 <%= popup "show", "#articles" %>
@@ -13,3 +12,12 @@
 <div style="display:none">
   <div id="articles"> hello a </div>
 </div>
+
+<%= list_table_for @articles do |item, col|
+
+  col.add :id
+  col.add :title, link_to("hello")
+end
+%>
+
+<%= paginate_links @articles %>
