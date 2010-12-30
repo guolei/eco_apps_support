@@ -181,7 +181,7 @@ module EcoAppsSupport
       args = {}
       args[:class] = td_class unless td_class.blank?
       args[:style] = "width: #{options[:width]}" unless options[:width].blank?
-      content_tag :th, value.html_safe, (td_class.blank? ? {} : {:class => td_class})
+      content_tag :th, value.html_safe, args
     end
 
     def collection_range_title(collection)
