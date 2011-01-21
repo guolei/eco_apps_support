@@ -1,7 +1,6 @@
 module ActionView
   module Helpers
     module FormHelper
-       
       def date_field(object_name, method, options = {})
         obj = ::ActionView::Helpers::InstanceTag.new(object_name, method, self).object
         date_picker_options = options.extract!(:change, :format, :range)
@@ -37,7 +36,7 @@ module ActionView
            });"
         end
       end
-
+      
     end
 
     class FormBuilder #:nodoc:

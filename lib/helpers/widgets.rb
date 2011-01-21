@@ -100,7 +100,7 @@ module EcoAppsSupport
       end
 
       content_tag(:table, :class => "calendar_view") do
-        html = ""
+        html = "".html_safe
         html = content_tag(:tr) do
           content_tag(:th, :class => "hl"){month_link(now, -1)} +
             content_tag(:th, :class => "hl", :colspan => 5){month_link(now)} +
@@ -108,7 +108,7 @@ module EcoAppsSupport
         end unless options[:ignore_header]
 
         html << content_tag(:tr) do
-          %w{sunday monday tuesday wednesday thurday friday saturday}.map{|d| content_tag(:th, t(d))}.join("")
+          %w{sunday monday tuesday wednesday thursday friday saturday}.map{|d| content_tag(:th, t(d))}.join.html_safe
         end
 
         loop_time = bom - bom.wday.days
@@ -118,14 +118,14 @@ module EcoAppsSupport
             (0..6).map{|i|
               css = calendar_day_style(loop_time + i.day, now)
               content_tag(:td, (loop_time + i.day).day, css.blank? ? {} : {:class => css})
-            }.join
+            }.join.html_safe
           end
 
           content = content_tag(:tr, :class => "content") do
             (0..6).map{|i|
               css = calendar_day_style(loop_time + i.day, now)
               content_tag(:td, block.call(loop_time + i.day), css.blank? ? {} : {:class => css})
-            }.join
+            }.join.html_safe
           end
 
           html << date << content
