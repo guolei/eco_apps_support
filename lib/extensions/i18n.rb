@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module EcoAppsSupport
   module Helpers
     module TranslationHelper
