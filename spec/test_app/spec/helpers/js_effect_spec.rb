@@ -23,8 +23,8 @@ describe "Tags" do
     end
 
     it "should accept params" do
-      helper.popup("hello", "/articles").should == helper.link_to("hello", "/articles", :class=>"box_10") + javascript_tag(helper.document_ready{%{$(".box_10").colorbox({width:"60%", height:"60%"});}})
-      helper.popup("hello", "/articles", :title => "hello", :height=>"80%").should == helper.link_to("hello", "/articles", :class=>"box_10", :title=>"hello") + javascript_tag(helper.document_ready{%{$(".box_10").colorbox({width:"60%", height:"80%"});}})
+      helper.popup("hello", "/articles").should == helper.link_to("hello", "/articles", :class=>"box_10") + javascript_tag(helper.document_ready{%{$(".box_10").colorbox({width:'60%', title:'hello'});}})
+      helper.popup("hello", "/articles", :title => "hello", :height=>"80%").should == helper.link_to("hello", "/articles", :class=>"box_10", :title=>"hello") + javascript_tag(helper.document_ready{%{$(".box_10").colorbox({width:'60%'});}})
       helper.popup("hello", "/articles", :width=>600, :iframe=>true).should == helper.link_to("hello", "/articles", :class=>"box_10") + javascript_tag(helper.document_ready{%{$(".box_10").colorbox({width:600, height:"60%", iframe:true});}})
     end
 
