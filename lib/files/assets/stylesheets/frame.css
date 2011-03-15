@@ -1,6 +1,6 @@
 .calendar_view{width:100%;}
 .calendar_view, .calendar_view th, .calendar_view tr, .calendar_view td{border:1px dotted #586A7E;border-collapse:collapse;padding:2px 3px;}
-.calendar_view th{background:#C2D5FC}
+.calendar_view th{background:#C2D5FC; width: 14.3%;}
 .calendar_view .hl{border-right:0;}
 .calendar_view .hm{border-right:0;border-left:0}
 .calendar_view .hr{border-left:0}

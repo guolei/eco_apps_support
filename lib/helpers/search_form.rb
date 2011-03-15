@@ -12,13 +12,13 @@ module EcoAppsSupport
         
       simple = options[:simple]||1
 
-      content_tag :span, {:class => "combo_search"} do
+      content_tag :div, {:class => "combo_search"} do
         c = "".html_safe
 
         toggle = toggle_element("advanced_search")
         c << link_to_function(t(:advanced), toggle) if attrs.size > simple
 
-        c << content_tag(:span, :id => "simple_search") do
+        c << content_tag(:div, :id => "simple_search") do
           form_tag(url, :method => :get, :onsubmit=>"filterNullValue('simple_search')") do
             hidden +
               (1..simple).to_a.map{|t| search_content_for(klass, attrs[t-1], false)}.join.html_safe +
