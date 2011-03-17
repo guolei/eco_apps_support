@@ -33,7 +33,7 @@ module EcoAppsSupport
           tr_options[:style] = "background: #{row.tr_color}" if row.tr_color.present?
 
           content << content_tag(:tr, tr_options) do
-            row.content.map{|i| content_tag(:td, i.class==Symbol ? item.try(i) : i.html_safe)}.join.html_safe
+            row.content.map{|i| content_tag(:td, i.is_a?(Symbol) ? item.try(i) : i.html_safe)}.join.html_safe
           end
         end
         content << "</tbody>".html_safe

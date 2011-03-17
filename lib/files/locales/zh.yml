@@ -119,7 +119,7 @@
     cancel: 取消
     from: ' 从 '
     to: ' 至 '
-    created_at: 创建时间&nbsp;
+    created_at: 创建时间
     total_record:
       zero: 没有找到任何记录
       one: '找到 1 条记录'

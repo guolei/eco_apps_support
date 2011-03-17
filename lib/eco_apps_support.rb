@@ -15,4 +15,3 @@ require 'helpers/widgets'
 require 'helpers/tags'
 
 ActionView::Base.send(:include, EcoAppsSupport::Helpers)
-
