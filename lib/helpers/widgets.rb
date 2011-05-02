@@ -3,6 +3,22 @@
 module EcoAppsSupport
   module Helpers
 
+    def info_table_for(data, options = {})
+      content_tag :table, :class=>["info-table", options[:css]].compact.join(" ") do
+        data.map{|row|
+          content_tag(:tr){
+            c = ""
+            row.each do |cell|
+              options = cell.extract_options!
+              c << content_tag(:th, cell.shift) if cell.size > 1
+              c << cell.map{|t| content_tag(:td, t, options)}.join
+            end
+            c.html_safe
+          } 
+        }.join.html_safe
+      end.html_safe
+    end
+
     def list_table_for(collection = [], options = {}, &block)
       tid = "table_#{rand(1000)}"
 

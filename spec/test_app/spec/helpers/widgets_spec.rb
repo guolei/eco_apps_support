@@ -8,7 +8,13 @@ describe "Widgets" do
     end
   end
 
-  describe "idp_table_for" do
+  describe "info_table_for" do
+    it "should draw info table" do
+      helper.info_table_for([[["Name", "Test"], ["Gender", "Male"], ["Oper", {:rowspan => 2}]], [["Address", "Chaoyang", {:colspan => 3}]]]).should == %{<table class="info-table"><tr><th>Name</th><td>Test</td><th>Gender</th><td>Male</td><td rowspan="2">Oper</td></tr><tr><th>Address</th><td colspan="3">Chaoyang</td></tr></table>}
+    end
+  end
+
+  describe "list_table_for" do
     before do
       30.times{Factory(:article)}
       @articles = Article.combo_search({})
