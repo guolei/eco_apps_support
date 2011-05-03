@@ -4,14 +4,15 @@ module EcoAppsSupport
   module Helpers
 
     def info_table_for(data, options = {})
-      content_tag :table, :class=>["info-table", options[:css]].compact.join(" ") do
+      options[:class] = ["info-table", options[:class]].compact.join(" ")
+      content_tag :table, options do
         data.map{|row|
           content_tag(:tr){
             c = ""
             row.each do |cell|
-              options = cell.extract_options!
+              opt = cell.extract_options!
               c << content_tag(:th, cell.shift) if cell.size > 1
-              c << cell.map{|t| content_tag(:td, t, options)}.join
+              c << cell.map{|t| content_tag(:td, t, opt)}.join
             end
             c.html_safe
           } 

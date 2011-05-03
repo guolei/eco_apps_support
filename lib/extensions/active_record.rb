@@ -12,7 +12,7 @@ module EcoAppsSupport
       module ObjectMethods
 
         def dom_id(prefix = "")
-          ([prefix, self.class.to_s.tableize.singularize, self.id.to_s] - ["",nil]).join("_")
+          ([prefix, self.class.to_s.tableize.singularize, self.id.to_s] - ["",nil]).join("_").gsub("/", "_")
         end
 
       end
