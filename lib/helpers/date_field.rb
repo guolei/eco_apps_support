@@ -28,7 +28,7 @@ module ActionView
         jquery_include_tag(:ui, :css, :i18n) +
           javascript_tag do
           "$(function() {
-              $('##{dom_id}').datepicker(#{options[:change] ? "{changeYear: true, changeMonth: true}" : ""});
+              $('##{dom_id}').datepicker(#{options[:change]==false ? "" : "{changeYear: true, changeMonth: true}"});
               $('##{dom_id}').datepicker('option', $.datepicker.regional['#{locale}']);
               $('##{dom_id}').datepicker('option', 'dateFormat', '#{options[:format]||"yy-mm-dd"}');
               $('##{dom_id}').datepicker('option', 'yearRange', 'c-#{range.first.abs}:c+#{range.last}' );
