@@ -22,7 +22,7 @@ module EcoAppsSupport
         when :i18n
           javascript_include_tag %{https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/i18n/jquery-ui-i18n.min.js}
         else
-          javascript_include_tag(%{https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js}) +
+          javascript_include_tag(%{https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js}) +
             javascript_include_tag("rails")
         end
         load_once("jquery_#{klass}"){cdn}
